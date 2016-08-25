@@ -489,11 +489,9 @@
             dot = $('<ul />').addClass(_.options.dotsClass);
 
             for (i = 0; i <= _.getDotCount(); i += 1) {
-                var li = $('<li />');
                 if (i % _.options.summaryDots == 0) {
-                    li.append(_.options.customPaging.call(this, _, i));
+                    dot.append($('<li data-index="'+i+'"/>').append(_.options.customPaging.call(this, _, i)));
                 }
-                dot.append(li);
             }
 
             _.$dots = dot.appendTo(_.options.appendDots);
@@ -719,7 +717,7 @@
 
             case 'index':
                 var index = event.data.index === 0 ? 0 :
-                    event.data.index || $target.index() * _.options.slidesToScroll;
+                    event.data.index || $target.data('index') * _.options.slidesToScroll;
 
                 _.slideHandler(_.checkNavigable(index), false, dontAnimate);
                 $target.children().trigger('focus');
@@ -2853,7 +2851,7 @@
 
             _.$dots
                 .find('li')
-                .eq(_.options.summaryDots * Math.floor(_.currentSlide / (_.options.summaryDots * _.options.slidesToScroll)))
+                .eq(Math.floor(_.currentSlide / (_.options.summaryDots * _.options.slidesToScroll)))
                 .addClass('slick-active')
                 .attr('aria-hidden', 'false');
 
