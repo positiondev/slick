@@ -56,6 +56,7 @@
                 },
                 dots: false,
                 dotsClass: 'slick-dots',
+                summaryDots: 1,
                 draggable: true,
                 easing: 'linear',
                 edgeFriction: 0.35,
@@ -488,7 +489,11 @@
             dot = $('<ul />').addClass(_.options.dotsClass);
 
             for (i = 0; i <= _.getDotCount(); i += 1) {
-                dot.append($('<li />').append(_.options.customPaging.call(this, _, i)));
+                var li = $('<li />');
+                if (i % _.options.summaryDots == 0) {
+                    li.append(_.options.customPaging.call(this, _, i));
+                }
+                dot.append(li);
             }
 
             _.$dots = dot.appendTo(_.options.appendDots);
@@ -1287,10 +1292,10 @@
 
         _.$slides.not(_.$slideTrack.find('.slick-cloned')).each(function(i) {
             $(this).attr('role', 'option');
-            
+
             //Evenly distribute aria-describedby tags through available dots.
             var describedBySlideId = _.options.centerMode ? i : Math.floor(i / _.options.slidesToShow);
-            
+
             if (_.options.dots === true) {
                 $(this).attr('aria-describedby', 'slick-slide' + _.instanceUid + describedBySlideId + '');
             }
@@ -2848,7 +2853,7 @@
 
             _.$dots
                 .find('li')
-                .eq(Math.floor(_.currentSlide / _.options.slidesToScroll))
+                .eq(_.options.summaryDots * Math.floor(_.currentSlide / (_.options.summaryDots * _.options.slidesToScroll)))
                 .addClass('slick-active')
                 .attr('aria-hidden', 'false');
 
