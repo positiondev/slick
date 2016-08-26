@@ -56,7 +56,7 @@
                 },
                 dots: false,
                 dotsClass: 'slick-dots',
-                summaryDots: 1,
+                slidesPerDot: 1,
                 draggable: true,
                 easing: 'linear',
                 edgeFriction: 0.35,
@@ -489,7 +489,7 @@
             dot = $('<ul />').addClass(_.options.dotsClass);
 
             for (i = 0; i <= _.getDotCount(); i += 1) {
-                if (i % _.options.summaryDots == 0) {
+                if (i % _.options.slidesPerDot == 0) {
                     dot.append($('<li data-index="'+i+'"/>').append(_.options.customPaging.call(this, _, i)));
                 }
             }
@@ -2851,7 +2851,7 @@
 
             _.$dots
                 .find('li')
-                .eq(Math.floor(_.currentSlide / (_.options.summaryDots * _.options.slidesToScroll)))
+                .eq(Math.floor(_.currentSlide / (_.options.slidesPerDot * _.options.slidesToScroll)))
                 .addClass('slick-active')
                 .attr('aria-hidden', 'false');
 
