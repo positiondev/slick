@@ -158,6 +158,11 @@
                 _.visibilityChange = 'webkitvisibilitychange';
             }
 
+            if(_.options.slidesToScroll != 1) {
+                console.warn("slidesPerDot not compatible with slidesToScroll; resetting slidesPerDot to 1");
+                _.options.slidesPerDot = 1;
+            }
+
             _.autoPlay = $.proxy(_.autoPlay, _);
             _.autoPlayClear = $.proxy(_.autoPlayClear, _);
             _.autoPlayIterator = $.proxy(_.autoPlayIterator, _);
